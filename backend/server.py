@@ -361,7 +361,7 @@ def create_moltbot_config(token: str, api_key: str = None):
     
     # Use provided key or fallback to env
     emergent_key = api_key or os.environ.get('EMERGENT_API_KEY', 'sk-emergent-54d8aE23aFf4e02159')
-    emergent_base_url = os.environ.get('EMERGENT_BASE_URL', 'https://integrations.emergentagent.com/llm/')
+    emergent_base_url = os.environ.get('EMERGENT_BASE_URL', 'https://integrations.emergentagent.com/llm')
     
     # Load existing config if present
     existing_config = {}
@@ -387,9 +387,9 @@ def create_moltbot_config(token: str, api_key: str = None):
         }
     }
     
-    # Emergent provider config - only GPT-5.2 (Claude has store param issue)
-    emergent_provider = {
-        "baseUrl": emergent_base_url,
+    # Emergent GPT provider (openai-completions API)
+    emergent_gpt_provider = {
+        "baseUrl": f"{emergent_base_url}/",
         "apiKey": emergent_key,
         "api": "openai-completions",
         "models": [
@@ -405,7 +405,25 @@ def create_moltbot_config(token: str, api_key: str = None):
         ]
     }
     
-    # Merge config - preserve existing settings, update gateway and ensure emergent provider
+    # Emergent Claude provider (anthropic-messages API with authHeader)
+    emergent_claude_provider = {
+        "baseUrl": emergent_base_url,
+        "apiKey": emergent_key,
+        "api": "anthropic-messages",
+        "authHeader": True,
+        "models": [
+            {
+                "id": "claude-sonnet-4-5",
+                "name": "Claude Sonnet 4.5",
+                "input": ["text"],
+                "cost": {"input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0},
+                "contextWindow": 200000,
+                "maxTokens": 64000
+            }
+        ]
+    }
+    
+    # Merge config - preserve existing settings, update gateway and providers
     existing_config["gateway"] = gateway_config
     
     # Ensure models section exists with merge mode
@@ -414,9 +432,10 @@ def create_moltbot_config(token: str, api_key: str = None):
     existing_config["models"]["mode"] = "merge"
     if "providers" not in existing_config["models"]:
         existing_config["models"]["providers"] = {}
-    existing_config["models"]["providers"]["emergent"] = emergent_provider
+    existing_config["models"]["providers"]["emergent-gpt"] = emergent_gpt_provider
+    existing_config["models"]["providers"]["emergent-claude"] = emergent_claude_provider
     
-    # Ensure agents defaults - use GPT-5.2 only
+    # Ensure agents defaults - Claude as primary with GPT fallback
     if "agents" not in existing_config:
         existing_config["agents"] = {"defaults": {}}
     if "defaults" not in existing_config["agents"]:
@@ -424,10 +443,11 @@ def create_moltbot_config(token: str, api_key: str = None):
     
     existing_config["agents"]["defaults"]["workspace"] = WORKSPACE_DIR
     existing_config["agents"]["defaults"]["models"] = {
-        "emergent/gpt-5.2": {"alias": "gpt-5.2"}
+        "emergent-gpt/gpt-5.2": {"alias": "gpt-5.2"},
+        "emergent-claude/claude-sonnet-4-5": {"alias": "sonnet"}
     }
     existing_config["agents"]["defaults"]["model"] = {
-        "primary": "emergent/gpt-5.2"
+        "primary": "emergent-claude/claude-sonnet-4-5"
     }
     
     with open(CONFIG_FILE, "w") as f:
