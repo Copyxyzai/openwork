@@ -141,7 +141,8 @@ export default function SetupPage() {
       toast.error('Please choose a provider');
       return;
     }
-    if (!apiKey || apiKey.length < 10) {
+    // Only require API key for non-emergent providers
+    if (provider !== 'emergent' && (!apiKey || apiKey.length < 10)) {
       setError('Please enter a valid API key.');
       toast.error('Please enter a valid API key');
       return;
@@ -159,11 +160,16 @@ export default function SetupPage() {
         });
       }, 500);
 
+      const payload = { provider };
+      if (provider !== 'emergent' && apiKey) {
+        payload.apiKey = apiKey;
+      }
+
       const res = await fetch(`${API}/moltbot/start`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ provider, apiKey })
+        body: JSON.stringify(payload)
       });
 
       clearInterval(progressInterval);
