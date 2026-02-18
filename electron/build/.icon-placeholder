@@ -1,0 +1,17 @@
+# Este é um placeholder para o ícone do MoltBot
+# Para gerar os ícones reais:
+
+# 1. Crie uma imagem PNG 512x512 com o logo do MoltBot
+# 2. Use uma ferramenta de conversão online como:
+#    - https://convertio.co/png-ico/
+#    - https://icoconvert.com/
+
+# 3. Gere os seguintes tamanhos:
+#    - icon.ico (para Windows, múltiplos tamanhos: 16, 32, 48, 64, 128, 256)
+#    - icon.png (512x512 para display geral)
+
+# 4. Coloque os arquivos nesta pasta:
+#    /app/electron/build/icon.ico
+#    /app/electron/build/icon.png
+
+# Enquanto os ícones não forem criados, o Electron usará ícone padrão.
