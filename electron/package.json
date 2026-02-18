@@ -10,10 +10,14 @@
     "start": "electron .",
     "build": "electron-builder",
     "build:win": "electron-builder --win --x64",
+    "build:mac": "electron-builder --mac --x64 --arm64",
+    "build:linux": "electron-builder --linux --x64",
+    "build:all": "electron-builder -mwl",
     "pack": "electron-builder --dir",
     "prepare-backend": "node scripts/prepare-backend.js",
     "prepare-mongodb": "node scripts/prepare-mongodb.js",
-    "prepare-all": "npm run prepare-backend && npm run prepare-mongodb"
+    "prepare-frontend": "node scripts/prepare-frontend.js",
+    "prepare-all": "npm run prepare-backend && npm run prepare-frontend && npm run prepare-mongodb"
   },
   "build": {
     "appId": "com.moltbot.app",
