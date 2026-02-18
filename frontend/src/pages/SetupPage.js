@@ -210,65 +210,12 @@ export default function SetupPage() {
             </p>
           </div>
         </motion.div>
-            </p>
-          </div>
-          
-          {/* User info and logout */}
-          <div className="flex items-center gap-3">
-            {user && (
-              <div className="flex items-center gap-2 text-sm text-zinc-400">
-                {user.picture ? (
-                  <img 
-                    src={user.picture} 
-                    alt={user.name} 
-                    className="w-8 h-8 rounded-full"
-                  />
-                ) : (
-                  <User className="w-5 h-5" />
-                )}
-                <span className="hidden sm:inline">{user.name}</span>
-              </div>
-            )}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleLogout}
-              data-testid="logout-button"
-              className="text-zinc-400 hover:text-zinc-200 hover:bg-[#1f2022]"
-            >
-              <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline ml-2">Logout</span>
-            </Button>
-          </div>
-        </motion.div>
       </header>
 
       {/* Main Content */}
       <main className="relative z-10 container mx-auto px-4 sm:px-6 pb-16">
-        {/* If OpenClaw is running by another user */}
-        {status?.running && !status?.is_owner && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
-            className="max-w-lg mb-6"
-          >
-            <Card className="border-yellow-900/40 bg-yellow-950/20 backdrop-blur-sm">
-              <CardContent className="pt-6">
-                <div className="flex items-center gap-3 text-yellow-500 mb-4">
-                  <AlertCircle className="w-5 h-5" />
-                  <span className="font-medium">OpenClaw in use</span>
-                </div>
-                <p className="text-zinc-400 text-sm">
-                  Another user is currently using OpenClaw. Please wait for them to stop their session.
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-
-        {/* If already running and user is owner, show status card */}
-        {status?.running && status?.is_owner && (
+        {/* If already running, show status card */}
+        {status?.running && (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
