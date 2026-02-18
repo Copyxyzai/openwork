@@ -1,0 +1,57 @@
+name: Build MoltBot Windows Installer
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install PyInstaller
+      run: pip install pyinstaller
+    
+    - name: Install Dependencies
+      run: |
+        cd electron
+        npm install
+    
+    - name: Build Backend
+      run: |
+        cd electron
+        node scripts/prepare-backend.js
+    
+    - name: Build Frontend
+      run: |
+        cd electron
+        node scripts/prepare-frontend.js
+    
+    - name: Download MongoDB
+      run: |
+        cd electron
+        node scripts/prepare-mongodb.js
+    
+    - name: Build Installer
+      run: |
+        cd electron
+        npm run build:win
+    
+    - name: Upload Installer
+      uses: actions/upload-artifact@v3
+      with:
+        name: MoltBot-Setup
+        path: electron/dist/MoltBot-Setup-*.exe
