@@ -141,15 +141,7 @@ export default function LoginPage() {
         </Card>
         
         <p className="text-xs text-zinc-600 text-center mt-6">
-          Powered by{' '}
-          <a
-            href="https://github.com/openclaw/openclaw"
-            target="_blank"
-            rel="noreferrer"
-            className="text-zinc-500 hover:text-zinc-400 underline underline-offset-2"
-          >
-            OpenClaw
-          </a>
+          MoltBot Desktop Application
         </p>
       </motion.div>
     </div>
