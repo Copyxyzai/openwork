@@ -264,13 +264,10 @@ export default function SetupPage() {
             <Card className="max-w-lg border-[#1f2022] bg-[#141416]/95 backdrop-blur-sm setup-card">
               <CardHeader>
                 <CardTitle className="heading text-xl font-semibold">
-                  {status?.running && status?.is_owner ? 'Restart with Different Config' : 'Provider & API Key'}
+                  Provider & API Key
                 </CardTitle>
                 <CardDescription className="text-zinc-400">
-                  {status?.running && status?.is_owner 
-                    ? 'Restart OpenClaw with a different provider or key'
-                    : 'Enter your LLM provider credentials to start OpenClaw'
-                  }
+                  Enter your LLM provider credentials to start OpenClaw
                 </CardDescription>
               </CardHeader>
               
