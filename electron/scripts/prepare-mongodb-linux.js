@@ -3,23 +3,13 @@ const path = require('path');
 const https = require('https');
 const { execSync } = require('child_process');
 
-// Detect architecture
-const arch = process.arch; // 'x64' or 'arm64'
 const MONGODB_VERSION = '8.0.4';
-
-let MONGODB_DOWNLOAD_URL;
-if (arch === 'arm64') {
-  MONGODB_DOWNLOAD_URL = `https://fastdl.mongodb.org/osx/mongodb-macos-arm64-${MONGODB_VERSION}.tgz`;
-} else {
-  MONGODB_DOWNLOAD_URL = `https://fastdl.mongodb.org/osx/mongodb-macos-x86_64-${MONGODB_VERSION}.tgz`;
-}
-
+const MONGODB_DOWNLOAD_URL = `https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu2204-${MONGODB_VERSION}.tgz`;
 const RESOURCES_DIR = path.join(__dirname, '..', 'resources');
 const MONGODB_TAR = path.join(RESOURCES_DIR, 'mongodb.tgz');
 const MONGODB_DEST = path.join(RESOURCES_DIR, 'mongodb');
 
-console.log('🔧 Preparing MongoDB Portable for macOS...');
-console.log(`Architecture: ${arch}`);
+console.log('🔧 Preparing MongoDB Portable for Linux...');
 console.log(`Download URL: ${MONGODB_DOWNLOAD_URL}`);
 console.log(`Destination: ${MONGODB_DEST}`);
 
@@ -102,7 +92,7 @@ function extractMongoDB() {
     
     // Find the extracted folder
     const extractedFolders = fs.readdirSync(RESOURCES_DIR)
-      .filter(name => name.startsWith('mongodb-macos'));
+      .filter(name => name.startsWith('mongodb-linux'));
     
     if (extractedFolders.length > 0) {
       const extractedPath = path.join(RESOURCES_DIR, extractedFolders[0]);
