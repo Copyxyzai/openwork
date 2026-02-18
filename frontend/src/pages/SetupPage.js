@@ -376,7 +376,7 @@ export default function SetupPage() {
                     </SelectTrigger>
                     <SelectContent className="bg-[#141416] border-[#1f2022]">
                       <SelectItem value="emergent" className="focus:bg-[#1f2022]">
-                        Emergent (Recommended - No key needed)
+                        Universal Key (Recommended - No key needed)
                       </SelectItem>
                       <SelectItem value="anthropic" className="focus:bg-[#1f2022]">
                         Anthropic (Claude) - Bring your own key
