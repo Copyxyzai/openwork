@@ -34,24 +34,32 @@
       {
         "from": "resources/backend",
         "to": "backend",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": "resources/mongodb",
         "to": "mongodb",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": "resources/frontend-build",
         "to": "frontend",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "win": {
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "icon": "build/icon.ico",
@@ -74,17 +82,17 @@
     }
   },
   "dependencies": {
+    "auto-launch": "^5.0.6",
     "electron-squirrel-startup": "^1.0.1",
     "electron-store": "^10.0.0",
     "electron-updater": "^6.3.9",
     "express": "^4.21.2",
-    "tree-kill": "^1.2.2",
     "extract-zip": "^2.0.1",
     "node-notifier": "^10.0.1",
-    "auto-launch": "^5.0.6"
+    "tree-kill": "^1.2.2"
   },
   "devDependencies": {
-    "electron": "^34.0.0",
-    "electron-builder": "^25.3.0"
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3"
   }
 }
