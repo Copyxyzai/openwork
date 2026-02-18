@@ -175,12 +175,12 @@ export default function SetupPage() {
     }
   }
 
-  if (isAuthenticated === null || checkingStatus) {
+  if (checkingStatus) {
     return (
       <div className="min-h-screen bg-[#0f0f10] flex items-center justify-center">
         <div className="text-zinc-400 flex items-center gap-2">
           <Loader2 className="w-5 h-5 animate-spin" />
-          {isAuthenticated === null ? 'Checking authentication...' : 'Checking OpenClaw status...'}
+          Checking OpenClaw status...
         </div>
       </div>
     );
@@ -197,17 +197,19 @@ export default function SetupPage() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="flex justify-between items-start"
         >
           <div className="max-w-lg">
             <div className="flex items-center gap-3 mb-2">
               <OpenClaw size={36} />
               <h1 className="heading text-2xl sm:text-3xl font-semibold tracking-tight">
-                OpenClaw Setup
+                MoltBot - OpenClaw Desktop
               </h1>
             </div>
             <p className="text-zinc-400 text-sm sm:text-base">
               Connect your LLM provider to start the OpenClaw Control UI.
+            </p>
+          </div>
+        </motion.div>
             </p>
           </div>
           
