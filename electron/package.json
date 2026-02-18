@@ -25,6 +25,7 @@
     "files": [
       "main.js",
       "preload.js",
+      "modules/**/*",
       "resources/**/*",
       "!resources/backend-source/**",
       "!resources/mongodb-zip/**"
@@ -64,14 +65,23 @@
       "shortcutName": "MoltBot",
       "installerIcon": "build/icon.ico",
       "uninstallerIcon": "build/icon.ico",
-      "installerHeaderIcon": "build/icon.ico"
+      "installerHeaderIcon": "build/icon.ico",
+      "runAfterFinish": true
+    },
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
     }
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.1",
+    "electron-store": "^10.0.0",
+    "electron-updater": "^6.3.9",
     "express": "^4.21.2",
     "tree-kill": "^1.2.2",
-    "extract-zip": "^2.0.1"
+    "extract-zip": "^2.0.1",
+    "node-notifier": "^10.0.1",
+    "auto-launch": "^5.0.6"
   },
   "devDependencies": {
     "electron": "^34.0.0",
