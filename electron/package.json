@@ -1,0 +1,80 @@
+{
+  "name": "moltbot",
+  "productName": "MoltBot",
+  "version": "1.0.0",
+  "description": "MoltBot - OpenClaw Hosting Desktop Application",
+  "main": "main.js",
+  "author": "MoltBot Team",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win --x64",
+    "pack": "electron-builder --dir",
+    "prepare-backend": "node scripts/prepare-backend.js",
+    "prepare-mongodb": "node scripts/prepare-mongodb.js",
+    "prepare-all": "npm run prepare-backend && npm run prepare-mongodb"
+  },
+  "build": {
+    "appId": "com.moltbot.app",
+    "productName": "MoltBot",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "resources/**/*",
+      "!resources/backend-source/**",
+      "!resources/mongodb-zip/**"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/backend",
+        "to": "backend",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "resources/mongodb",
+        "to": "mongodb",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "resources/frontend-build",
+        "to": "frontend",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "MoltBot",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
+    }
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1",
+    "express": "^4.21.2",
+    "tree-kill": "^1.2.2",
+    "extract-zip": "^2.0.1"
+  },
+  "devDependencies": {
+    "electron": "^34.0.0",
+    "electron-builder": "^25.3.0"
+  }
+}
