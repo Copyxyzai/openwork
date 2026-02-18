@@ -254,8 +254,8 @@ export default function SetupPage() {
           </motion.div>
         )}
 
-        {/* Setup Card - show if not running or if user is owner */}
-        {(!status?.running || status?.is_owner) && (
+        {/* Setup Card */}
+        {!status?.running && (
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
