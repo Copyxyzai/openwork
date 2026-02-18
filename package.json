@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "build-windows": "cd electron && bash build-all.sh",
+    "prepare-electron": "cd electron && npm install"
+  }
+}

@@ -1,0 +1,31 @@
+# Arquivos de build e distribuição
+dist/
+build/electron/
+
+# Dependências
+node_modules/
+
+# Recursos temporários
+resources/backend-source/
+resources/mongodb-zip/
+*.zip
+
+# Arquivos de build do PyInstaller
+*.spec
+__pycache__/
+*.pyc
+build/
+
+# Logs
+*.log
+logs/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
