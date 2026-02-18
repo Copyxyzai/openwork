@@ -15,58 +15,28 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || '';
 const API = `${BACKEND_URL}/api`;
 
 export default function SetupPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  
-  const [user, setUser] = useState(location.state?.user || null);
-  const [isAuthenticated, setIsAuthenticated] = useState(location.state?.user ? true : null);
   const [provider, setProvider] = useState('emergent');
   const [apiKey, setApiKey] = useState('');
   const [reveal, setReveal] = useState(false);
-  const [showAdvanced, setShowAdvanced] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState(null);
   const [checkingStatus, setCheckingStatus] = useState(true);
 
-  // Check auth on mount (if not passed from AuthCallback)
+  // Check OpenClaw status on mount
   useEffect(() => {
-    if (location.state?.user) {
-      setIsAuthenticated(true);
-      setUser(location.state.user);
-      checkOpenClawStatus();
-      return;
-    }
-    
-    const checkAuth = async () => {
-      try {
-        const response = await fetch(`${API}/auth/me`, {
-          credentials: 'include'
-        });
-        if (!response.ok) throw new Error('Not authenticated');
-        const userData = await response.json();
-        setUser(userData);
-        setIsAuthenticated(true);
-        checkOpenClawStatus();
-      } catch (e) {
-        setIsAuthenticated(false);
-        navigate('/login', { replace: true });
-      }
-    };
-    checkAuth();
-  }, [navigate, location.state]);
+    checkOpenClawStatus();
+  }, []);
 
   const checkOpenClawStatus = async () => {
     setCheckingStatus(true);
     try {
-      const res = await fetch(`${API}/openclaw/status`, {
-        credentials: 'include'
-      });
+      const res = await fetch(`${API}/openclaw/status`);
       if (res.ok) {
         const data = await res.json();
         setStatus(data);
-        if (data.running && data.is_owner) {
+        if (data.running) {
           toast.success('OpenClaw is already running!');
         }
       }
